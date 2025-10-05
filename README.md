@@ -1,41 +1,113 @@
-# Energy-Consumption-Time-Series
+# ⚡ Time Series Forecasting with AR, ARIMA, and Other Models
 
-***
+This repository contains experiments with **time series forecasting algorithms** applied to electricity consumption data. The focus is on building and comparing different forecasting methods such as **AR (AutoRegression)**, **ARIMA**, and other classical models.
 
-## Individual household electric power consumption Data Set
+---
 
-***
+## 📂 Project Structure
 
-#### Primarily trying to device the method that could be used to forecast energy consumption of the upcoming month, based on one months data only. A lot of experimentations done over different models. The experimentation is demonstrated and results are plotted as well.
+```
+forecastingAlgos.ipynb   # Main Jupyter Notebook with all implementations
+data/                    # (Optional) Directory to store dataset
+README.md                # Project documentation
+```
 
-#### **The 5 methods that are worked upon are:**
+---
 
-> ####   1 - ARIMA Forecasting for 1 timestep and for whole month
-> ####   2 - Facebook Prophet forecasting based on variable amount of training data
-> ####   3 - Using Auto Regression (AR) with walk-forward validation 
-> ####   4 - Using Moving Average (MA) with anamoly detection within data
-> ####   5 - Using Deep Learning for Time Series modeling
+## 📊 Dataset
 
+The project uses a **household electricity consumption dataset**.
 
-***
+* Key variable: `Global_active_power`
+* Time indexed (resampled daily / monthly for trend analysis).
 
-#### The accuracy over here does not depend on the individual daily predictions that are calculated against yhat and true value. The Goal here is to predict the overall energy consumption in the month. Therefore, the individual predictions may not seem as accurate as they should be, but the commulative monthly energy consumptions (sum of yhat) when compared against the actual monthly consumption (from the test set) could potentially have better results
+You can replace this dataset with any univariate time series by updating the `dfSeven` variable in the notebook.
 
-***
+---
 
+## 🚀 Implemented Methods
 
-#### The accuracy of overall energy consumption is deduced through the following simple metric:
+### 1. Exploratory Data Analysis (EDA)
 
-> #### **Percent Error = ( |Experimental Value – Theoretical Value| ÷ Theoretical Value) x 100**
+* Overall energy trend plotting
+* Monthly consumption trends using `matplotlib`
 
-### NOTE
-#### You will have to clean and preprocess the data that you download for missing values. For help with that preprocessing, refer to the reference 1 and 2 of **Jason Brownlee's machinelearningmastery blog.**
+### 2. AR (AutoRegression)
 
-### Refrences
-> https://machinelearningmastery.com/how-to-develop-an-autoregression-forecast-model-for-household-electricity-consumption/
+* Uses `statsmodels.tsa.ar_model.AutoReg`
+* Splits the dataset into **train/test sets**
+* Forecasts values and evaluates performance with **Mean Squared Error (MSE)**
 
-> https://machinelearningmastery.com/multi-step-time-series-forecasting-with-machine-learning-models-for-household-electricity-consumption/
+### 3. ARIMA
 
-> https://pythondata.com/forecasting-time-series-autoregression/
+* Uses `statsmodels.tsa.arima.model.ARIMA`
+* Tested with configurations like `(2,2,1)`
+* Produces predictions for test set
+* Evaluation using **MSE** and error percentage
 
-> #### Dataset: https://archive.ics.uci.edu/ml/datasets/individual+household+electric+power+consumption
+### 4. (Optional Extensions)
+
+* Auto-adjustment of lags in AR to avoid small dataset issues
+* Handling of outliers and stationarity checks
+
+---
+
+## 📈 Results
+
+* Plots show **true vs predicted values** for each model
+* Error metrics (MSE, % error) are displayed on plots
+* ARIMA typically outperforms AR, but results depend on dataset length and stationarity
+
+---
+
+## ⚙️ Requirements
+
+Install dependencies before running the notebook:
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn statsmodels plotly
+```
+
+---
+
+## ▶️ How to Run
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/<your-username>/<repo-name>.git
+   cd <repo-name>
+   ```
+2. Launch Jupyter Notebook:
+
+   ```bash
+   jupyter notebook forecastingAlgos.ipynb
+   ```
+3. Run cells in order to reproduce results.
+
+---
+
+## 📌 Key Notes
+
+* `AR` from older `statsmodels` is deprecated → replaced with `AutoReg`.
+* `ARIMA` from `statsmodels.tsa.arima_model` is deprecated → replaced with `statsmodels.tsa.arima.model.ARIMA`.
+* Code is updated accordingly to avoid compatibility issues.
+
+---
+
+## 📚 References
+
+* [Statsmodels Documentation](https://www.statsmodels.org/stable/index.html)
+* [Box-Jenkins Methodology for ARIMA](https://en.wikipedia.org/wiki/Box–Jenkins_method)
+
+---
+
+## ✨ Future Improvements
+
+* Add SARIMA for seasonality
+* Compare with machine learning models (XGBoost, LSTMs)
+* Deploy a small interactive dashboard using Plotly/Dash
+
+---
+
+Would you like me to also include **sample output plots (screenshots)** in the README (GitHub supports inline images), so your repo looks more attractive?

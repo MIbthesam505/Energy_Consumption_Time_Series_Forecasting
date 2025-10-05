@@ -75,7 +75,7 @@ pip install pandas numpy matplotlib seaborn scikit-learn statsmodels plotly
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/<your-username>/<repo-name>.git
+   git clone https://github.com/MIbthesam505/Energy_Consumption_Time_Series_Forecasting.git
    cd <repo-name>
    ```
 2. Launch Jupyter Notebook:
